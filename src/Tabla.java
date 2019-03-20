@@ -91,6 +91,12 @@ public class Tabla extends JFrame {
 		contentPane.add(btnBaja);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miModelo.setValueAt(txtNombre.getText(), tableTlf.getSelectedRow(), 0);
+				miModelo.setValueAt(txtTlf.getText(), tableTlf.getSelectedRow(), 1);
+			}
+		});
 		btnModificar.setBounds(320, 200, 89, 23);
 		contentPane.add(btnModificar);
 	}
