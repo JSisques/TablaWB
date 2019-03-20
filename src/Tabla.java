@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Tabla extends JFrame {
 
@@ -41,6 +43,13 @@ public class Tabla extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tableTlf = new JTable();
+		tableTlf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtNombre.setText((String) tableTlf.getValueAt(tableTlf.getSelectedRow(), 0));;
+				txtTlf.setText((String) tableTlf.getValueAt(tableTlf.getSelectedRow(), 1));;
+			}
+		});
 		scrollPane.setViewportView(tableTlf);
 		miModelo = new DefaultTableModel(
 				new String[][] {
