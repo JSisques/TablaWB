@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 public class Tabla extends JFrame {
 
 	private JPanel contentPane;
-	private JTable TableTlf;
+	private JTable tableTlf;
 	private JTextField txtNombre;
 	private JTextField txtTlf;
 	private JButton btnAlta;
@@ -40,8 +40,8 @@ public class Tabla extends JFrame {
 		scrollPane.setBounds(25, 22, 384, 121);
 		contentPane.add(scrollPane);
 		
-		TableTlf = new JTable();
-		scrollPane.setViewportView(TableTlf);
+		tableTlf = new JTable();
+		scrollPane.setViewportView(tableTlf);
 		miModelo = new DefaultTableModel(
 				new String[][] {
 					{"Javier Fernández", "123456789"},
@@ -51,7 +51,7 @@ public class Tabla extends JFrame {
 					"Nombre", "Teléfono"
 				}
 			);
-		TableTlf.setModel(miModelo);
+		tableTlf.setModel(miModelo);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(25, 154, 179, 20);
@@ -73,6 +73,11 @@ public class Tabla extends JFrame {
 		contentPane.add(btnAlta);
 		
 		btnBaja = new JButton("Baja");
+		btnBaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miModelo.removeRow(tableTlf.getSelectedRow());
+			}
+		});
 		btnBaja.setBounds(169, 200, 89, 23);
 		contentPane.add(btnBaja);
 		
