@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Tabla extends JFrame {
 
@@ -19,6 +21,7 @@ public class Tabla extends JFrame {
 	private JButton btnAlta;
 	private JButton btnBaja;
 	private JButton btnModificar;
+	private DefaultTableModel miModelo;
 
 
 	/**
@@ -39,15 +42,16 @@ public class Tabla extends JFrame {
 		
 		TableTlf = new JTable();
 		scrollPane.setViewportView(TableTlf);
-		TableTlf.setModel(new DefaultTableModel(
-			new String[][] {
-				{"Javier Fernández", "123456789"},
-				{"Santiago López", "987654321"},
-			},
-			new String[] {
-				"Nombre", "Teléfono"
-			}
-		));
+		miModelo = new DefaultTableModel(
+				new String[][] {
+					{"Javier Fernández", "123456789"},
+					{"Santiago López", "987654321"},
+				},
+				new String[] {
+					"Nombre", "Teléfono"
+				}
+			);
+		TableTlf.setModel(miModelo);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(25, 154, 179, 20);
@@ -60,6 +64,11 @@ public class Tabla extends JFrame {
 		contentPane.add(txtTlf);
 		
 		btnAlta = new JButton("Alta");
+		btnAlta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				miModelo.addRow(new String [] {txtNombre.getText(),txtTlf.getText()});;
+			}
+		});
 		btnAlta.setBounds(29, 200, 89, 23);
 		contentPane.add(btnAlta);
 		
