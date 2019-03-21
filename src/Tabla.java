@@ -91,6 +91,9 @@ public class Tabla extends JFrame {
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				miModelo.addRow(new String [] {txtNombre.getText(),txtTlf.getText()});;
+				txtNombre.setText("");
+				txtTlf.setText("");
+				btnAlta.setEnabled(false);
 			}
 		});
 		btnAlta.setBounds(29, 200, 89, 23);
