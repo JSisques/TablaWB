@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Tabla extends JFrame {
 
@@ -63,16 +65,29 @@ public class Tabla extends JFrame {
 		tableTlf.setModel(miModelo);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				enableAceptar ();
+			}
+		});
 		txtNombre.setBounds(25, 154, 179, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtTlf = new JTextField();
+		txtTlf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				enableAceptar ();
+			}
+		});
 		txtTlf.setColumns(10);
 		txtTlf.setBounds(214, 154, 195, 20);
 		contentPane.add(txtTlf);
 		
 		btnAlta = new JButton("Alta");
+		btnAlta.setEnabled(false);
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				miModelo.addRow(new String [] {txtNombre.getText(),txtTlf.getText()});;
@@ -100,4 +115,12 @@ public class Tabla extends JFrame {
 		btnModificar.setBounds(320, 200, 89, 23);
 		contentPane.add(btnModificar);
 	}
+	
+	private void enableAceptar () {
+		if (!txtNombre.getText().equals("") && !txtTlf.getText().equals("")) {
+			btnAlta.setEnabled(true);
+		} else
+			btnAlta.setEnabled(false);
+	}
+	
 }
