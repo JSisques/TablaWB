@@ -1,7 +1,12 @@
+package Modelo;
 import javax.swing.table.DefaultTableModel;
+
+import Vista.Login;
+import Vista.Tabla;
 
 public class Modelo {
 	private Tabla miVista;	
+	private Login miLogin;
 	private DefaultTableModel miTabla;
 	
 	public Modelo () {
@@ -14,9 +19,14 @@ public class Modelo {
 		this.miVista=miVista;
 	}
 	
+	public void setLogin(Login miLogin) {
+		this.miLogin=miLogin;
+	}
+	
 	public DefaultTableModel getTabla () {
 		return miTabla;
 	}
-	
+
+
 
 }

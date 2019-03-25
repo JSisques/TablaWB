@@ -1,3 +1,4 @@
+package Vista;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,6 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Controlador.Controlador;
+import Modelo.Modelo;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
