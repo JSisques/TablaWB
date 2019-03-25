@@ -15,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Tabla extends JFrame {
 	private Controlador miControlador;
@@ -33,6 +35,13 @@ public class Tabla extends JFrame {
 	 * Create the frame.
 	 */
 	public Tabla() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				miTabla = miModelo.getTabla();
+				tableTlf.setModel(miTabla);
+			}
+		});
 		setTitle("Agenda Telefónica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -58,10 +67,8 @@ public class Tabla extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(tableTlf);
-		miTabla = new DefaultTableModel(
-				new String[][] { { "Javier Fernández", "123456789" }, { "Santiago López", "987654321" }, },
-				new String[] { "Nombre", "Teléfono" });
-		tableTlf.setModel(miTabla);
+
+
 
 		txtNombre = new JTextField();
 		txtNombre.addKeyListener(new KeyAdapter() {
