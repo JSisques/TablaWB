@@ -27,7 +27,6 @@ public class Tabla extends JFrame {
 	private JButton btnModificar;
 	private DefaultTableModel miModelo;
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -39,58 +38,57 @@ public class Tabla extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 22, 384, 121);
 		contentPane.add(scrollPane);
-		
+
 		tableTlf = new JTable();
 		tableTlf.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				txtNombre.setText((String) tableTlf.getValueAt(tableTlf.getSelectedRow(), 0));;
-				txtTlf.setText((String) tableTlf.getValueAt(tableTlf.getSelectedRow(), 1));;
+				txtNombre.setText((String) tableTlf.getValueAt(tableTlf.getSelectedRow(), 0));
+				;
+				txtTlf.setText((String) tableTlf.getValueAt(tableTlf.getSelectedRow(), 1));
+				;
+				enableBotones();
+				btnAlta.setEnabled(false);
 			}
 		});
 		scrollPane.setViewportView(tableTlf);
 		miModelo = new DefaultTableModel(
-				new String[][] {
-					{"Javier Fernández", "123456789"},
-					{"Santiago López", "987654321"},
-				},
-				new String[] {
-					"Nombre", "Teléfono"
-				}
-			);
+				new String[][] { { "Javier Fernández", "123456789" }, { "Santiago López", "987654321" }, },
+				new String[] { "Nombre", "Teléfono" });
 		tableTlf.setModel(miModelo);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				enableAceptar ();
+				enableBotones();
 			}
 		});
 		txtNombre.setBounds(25, 154, 179, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		txtTlf = new JTextField();
 		txtTlf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				enableAceptar ();
+				enableBotones();
 			}
 		});
 		txtTlf.setColumns(10);
 		txtTlf.setBounds(214, 154, 195, 20);
 		contentPane.add(txtTlf);
-		
+
 		btnAlta = new JButton("Alta");
 		btnAlta.setEnabled(false);
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				miModelo.addRow(new String [] {txtNombre.getText(),txtTlf.getText()});;
+				miModelo.addRow(new String[] { txtNombre.getText(), txtTlf.getText() });
+				;
 				txtNombre.setText("");
 				txtTlf.setText("");
 				btnAlta.setEnabled(false);
@@ -98,32 +96,55 @@ public class Tabla extends JFrame {
 		});
 		btnAlta.setBounds(29, 200, 89, 23);
 		contentPane.add(btnAlta);
-		
+
 		btnBaja = new JButton("Baja");
+		btnBaja.setEnabled(false);
 		btnBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				miModelo.removeRow(tableTlf.getSelectedRow());
+				txtNombre.setText("");
+				txtTlf.setText("");
+				enableBotones();
 			}
 		});
 		btnBaja.setBounds(169, 200, 89, 23);
 		contentPane.add(btnBaja);
-		
+
 		btnModificar = new JButton("Modificar");
+		btnModificar.setEnabled(false);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				miModelo.setValueAt(txtNombre.getText(), tableTlf.getSelectedRow(), 0);
 				miModelo.setValueAt(txtTlf.getText(), tableTlf.getSelectedRow(), 1);
+				txtNombre.setText("");
+				txtTlf.setText("");
+				enableBotones();
 			}
 		});
 		btnModificar.setBounds(320, 200, 89, 23);
 		contentPane.add(btnModificar);
 	}
-	
-	private void enableAceptar () {
+
+	private void enableBotones() {
+		// Condiciones del botón de ALTA
 		if (!txtNombre.getText().equals("") && !txtTlf.getText().equals("")) {
 			btnAlta.setEnabled(true);
-		} else
+			// Condiciones del botón de MODIFICAR
+			if (tableTlf.getSelectedRowCount() == 1)
+				btnModificar.setEnabled(true);
+			else
+				btnModificar.setEnabled(false);
+		} else {
 			btnAlta.setEnabled(false);
+			btnModificar.setEnabled(false);
+		}
+		// Condiciones del botón de BAJA
+		if (tableTlf.getSelectedRowCount() == 1) {
+			btnBaja.setEnabled(true);
+		} else {
+			btnBaja.setEnabled(false);
+		}
+
 	}
-	
+
 }
