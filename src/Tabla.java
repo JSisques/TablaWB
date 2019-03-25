@@ -17,7 +17,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Tabla extends JFrame {
-
+	private Controlador miControlador;
+	private Modelo miModelo;
+	
 	private JPanel contentPane;
 	private JTable tableTlf;
 	private JTextField txtNombre;
@@ -25,7 +27,7 @@ public class Tabla extends JFrame {
 	private JButton btnAlta;
 	private JButton btnBaja;
 	private JButton btnModificar;
-	private DefaultTableModel miModelo;
+	private DefaultTableModel miTabla;
 
 	/**
 	 * Create the frame.
@@ -56,10 +58,10 @@ public class Tabla extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(tableTlf);
-		miModelo = new DefaultTableModel(
+		miTabla = new DefaultTableModel(
 				new String[][] { { "Javier Fernández", "123456789" }, { "Santiago López", "987654321" }, },
 				new String[] { "Nombre", "Teléfono" });
-		tableTlf.setModel(miModelo);
+		tableTlf.setModel(miTabla);
 
 		txtNombre = new JTextField();
 		txtNombre.addKeyListener(new KeyAdapter() {
@@ -87,7 +89,7 @@ public class Tabla extends JFrame {
 		btnAlta.setEnabled(false);
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				miModelo.addRow(new String[] { txtNombre.getText(), txtTlf.getText() });
+				miTabla.addRow(new String[] { txtNombre.getText(), txtTlf.getText() });
 				;
 				txtNombre.setText("");
 				txtTlf.setText("");
@@ -101,7 +103,7 @@ public class Tabla extends JFrame {
 		btnBaja.setEnabled(false);
 		btnBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miModelo.removeRow(tableTlf.getSelectedRow());
+				miTabla.removeRow(tableTlf.getSelectedRow());
 				txtNombre.setText("");
 				txtTlf.setText("");
 				enableBotones();
@@ -114,8 +116,8 @@ public class Tabla extends JFrame {
 		btnModificar.setEnabled(false);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miModelo.setValueAt(txtNombre.getText(), tableTlf.getSelectedRow(), 0);
-				miModelo.setValueAt(txtTlf.getText(), tableTlf.getSelectedRow(), 1);
+				miTabla.setValueAt(txtNombre.getText(), tableTlf.getSelectedRow(), 0);
+				miTabla.setValueAt(txtTlf.getText(), tableTlf.getSelectedRow(), 1);
 				txtNombre.setText("");
 				txtTlf.setText("");
 				enableBotones();
@@ -145,6 +147,14 @@ public class Tabla extends JFrame {
 			btnBaja.setEnabled(false);
 		}
 
+	}
+
+	public void setModelo(Modelo miModelo) {
+		this.miModelo=miModelo;
+	}
+
+	public void setControlador(Controlador miControlador) {
+		this.miControlador=miControlador;
 	}
 
 }
