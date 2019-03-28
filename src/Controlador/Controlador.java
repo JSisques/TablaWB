@@ -20,8 +20,12 @@ public class Controlador {
 		this.miVista=miVista;
 	}
 
-	public void Login() {
+	public void cambiaLoginTabla () {
 		miLogin.setVisible(false);
 		miVista.setVisible(true);
+	}
+	
+	public void Login() {
+		miModelo.peticionLogin(miLogin.getUsr(),miLogin.getPwd());
 	}
 }
