@@ -5,10 +5,11 @@ import Vista.*;
 public class Main {
 	public static void main(String[] args) {
 		//Creación de los objetos
-		Controlador miControlador = new Controlador ();
-		Modelo miModelo = new Modelo ();
 		Tabla miVista = new Tabla ();
 		Login miLogin = new Login ();
+		Controlador miControlador = new Controlador ();
+		Modelo miModelo = new Modelo ();
+
 		
 		//Relaciones entre objetos
 		miModelo.setVista(miVista);
